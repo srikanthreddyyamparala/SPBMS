@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--  Config DataSource -->
+<bean id="ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+	<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+	<property name="username" value="xe"/>
+	<property name="password" value="xe"/>
+</bean>
+
+<!--  DAO Cfg  -->
+<bean id="employeeDAO" class="com.nt.dao.EmployeeRegristrationImmplDAO">
+	<constructor-arg  ref="ds"/>
+</bean>
+
+<!--  Service CFG -->
+<bean id="employeeService"  class="com.nt.service.EmployeeRegristrationImplService">
+	<constructor-arg ref="employeeDAO"/>
+</bean>
+
+<!--  Controller config -->
+<bean id="employeeContoller" class="com.nt.controller.EmployeeRegistrationController">
+	<constructor-arg ref="employeeService"/>
+</bean>
+</beans>
