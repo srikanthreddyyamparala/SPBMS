@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!--  DataSource Config -->
+	<bean id="ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+		<property name="username" value="xe"/>
+		<property name="password" value="xe"/>
+	 </bean>
+
+	<!--  DAO Config -->
+	<bean id="covidDAO" class="com.nt.dao.CovidPaitentDAOImpl">
+	<constructor-arg ref="ds"/>
+	</bean>
+	
+	<!--  Service Config -->
+	<bean id="covidService" class="com.nt.service.CovidPaitentImplService">
+		<constructor-arg ref="covidDAO"/>
+	</bean>
+	
+	<!--  Controller Config -->
+	<bean id="controller" class="com.nt.controller.MainController">
+		<constructor-arg ref="covidService"/>
+	</bean>
+
+</beans>
